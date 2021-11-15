@@ -677,10 +677,10 @@ let robust_comparison_tolerance = microsecond
 let ( >=. ) t u = t >= Int63.(u - robust_comparison_tolerance)
 let ( <=. ) t u = t <= Int63.(u + robust_comparison_tolerance)
 let ( =. ) t u = Int63.(abs (t - u)) <= robust_comparison_tolerance
-let ( >. ) t u = t > Int63.(u + robust_comparison_tolerance)
+let ( >>. ) t u = t > Int63.(u + robust_comparison_tolerance)
 let ( <. ) t u = t < Int63.(u - robust_comparison_tolerance)
 let ( <>. ) t u = Int63.(abs (t - u)) > robust_comparison_tolerance
-let robustly_compare t u = if t <. u then -1 else if t >. u then 1 else 0
+let robustly_compare t u = if t <. u then -1 else if t >>. u then 1 else 0
 
 (* We don't just convert to [Time.Span.t] and use the conversion there because our
    [to_span] conversion is limited to microsecond precision. *)

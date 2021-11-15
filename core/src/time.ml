@@ -11,7 +11,7 @@ module Make (Time0 : Time0_intf.S) = struct
 
   let epoch = of_span_since_epoch Span.zero
   let is_earlier t1 ~than:t2 = t1 <. t2
-  let is_later t1 ~than:t2 = t1 >. t2
+  let is_later t1 ~than:t2 = t1 >>. t2
 
   module Zone : sig
     include Time_intf.Zone with module Time := Time0
@@ -242,10 +242,10 @@ module Make (Time0 : Time0_intf.S) = struct
       (* Edge cases: the instant of transition belongs to the new zone regime. So if the
          clock moved by an hour exactly one hour ago, there's no ambiguity, because the
          hour-ago time belongs to the same regime as you, and conversely, if the clock
-         will move by an hour in an hours' time, there *is* ambiguity. Hence [>.] for
+         will move by an hour in an hours' time, there *is* ambiguity. Hence [>>.] for
          the first case and [<=.] for the second. *)
       match clock_shift_before_or_at, clock_shift_after with
-      | Some (start, amount), _ when add start (Span.abs amount) >. time ->
+      | Some (start, amount), _ when add start (Span.abs amount) >>. time ->
         (* clock shifted recently *)
         if Span.(amount > zero)
         then
