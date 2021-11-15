@@ -11,7 +11,7 @@ module type S = sig
   val ( >=. ) : t -> t -> bool
   val ( <=. ) : t -> t -> bool
   val ( =. ) : t -> t -> bool
-  val ( >. ) : t -> t -> bool
+  val ( >>. ) : t -> t -> bool
   val ( <. ) : t -> t -> bool
   val ( <>. ) : t -> t -> bool
 

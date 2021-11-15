@@ -54,8 +54,8 @@ module Robust_compare = struct
     let ( >=. ) x y = x >= Caml.( -. ) y robust_comparison_tolerance
     let ( <=. ) x y = y >=. x
     let ( =. ) x y = x >=. y && y >=. x
-    let ( >. ) x y = x > Caml.( +. ) y robust_comparison_tolerance
-    let ( <. ) x y = y >. x
+    let ( >>. ) x y = x > Caml.( +. ) y robust_comparison_tolerance
+    let ( <. ) x y = y >>. x
     let ( <>. ) x y = not (x =. y)
 
     let robustly_compare x y =
@@ -91,7 +91,7 @@ module Terse = struct
     with type t := t)
 end
 
-let robust_sign t : Sign.t = if t >. 0. then Pos else if t <. 0. then Neg else Zero
+let robust_sign t : Sign.t = if t >>. 0. then Pos else if t <. 0. then Neg else Zero
 
 (* There are two issues:
    - Float.sign used to use robust comparison, and users of [Core] might have come to
